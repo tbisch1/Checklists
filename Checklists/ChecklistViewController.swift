@@ -15,6 +15,12 @@ class ChecklistViewController: UITableViewController {
     let row3text = "Soccer practice"
     let row4text = "Eat ice cream"
     
+    var row0checked = false
+    var row1checked = false
+    var row2checked = false
+    var row3checked = false
+    var row4checked = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -56,10 +62,32 @@ class ChecklistViewController: UITableViewController {
       didSelectRowAt indexPath: IndexPath
     ){
     if let cell = tableView.cellForRow(at: indexPath) {
-        if cell.accessoryType == .none {
-          cell.accessoryType = .checkmark
-    } else {
-          cell.accessoryType = .none
+        var isChecked = false
+        if indexPath.row == 0 {
+            row0checked.toggle()
+            isChecked = row0checked
+        }
+        else if indexPath.row == 1 {
+            row1checked.toggle()
+            isChecked = row1checked
+        }
+        else if indexPath.row == 2 {
+            row2checked.toggle()
+            isChecked = row2checked
+        }
+        else if indexPath.row == 3 {
+            row3checked.toggle()
+            isChecked = row3checked
+        }
+        else if indexPath.row == 4 {
+            row4checked.toggle()
+            isChecked = row4checked
+        }
+        if isChecked {
+            cell.accessoryType = .checkmark
+        }
+        else {
+            cell.accessoryType = .none
         }
     }
       tableView.deselectRow(at: indexPath, animated: true)
