@@ -31,6 +31,10 @@ class ChecklistViewController: UITableViewController {
         let item5 = ChecklistItem()
         item5.text = "Eat ice cream"
         items.append(item5)
+        //added by me
+        let item6 = ChecklistItem()
+        item6.text = "Make video"
+        items.append(item6)
     }
 
     // MARK: - Table View Data Source
