@@ -59,7 +59,7 @@
         <!--Add Item-->
         <scene sceneID="boL-1O-V01">
             <objects>
-                <tableViewController id="6Rh-GG-81S" sceneMemberID="viewController">
+                <tableViewController id="6Rh-GG-81S" customClass="AddItemViewController" customModule="Checklists" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="IkS-2T-YBA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -80,8 +80,16 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Add Item" largeTitleDisplayMode="never" id="QVo-F3-VeC">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="I58-bl-fPe"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="oQG-4i-kcA"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="I58-bl-fPe">
+                            <connections>
+                                <action selector="cancel" destination="6Rh-GG-81S" id="3mz-F7-t0B"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="oQG-4i-kcA">
+                            <connections>
+                                <action selector="done" destination="6Rh-GG-81S" id="ZhG-B9-Lpy"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W8C-d1-EW8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
