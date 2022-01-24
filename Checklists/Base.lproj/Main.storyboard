@@ -3,6 +3,7 @@
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -10,33 +11,43 @@
         <!--Checklists-->
         <scene sceneID="NYS-BB-QK3">
             <objects>
-                <tableViewController id="T0w-u4-s0H" customClass="ChecklistViewController" customModule="Checklists" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="T0w-u4-s0H" customClass="ItemDetailViewController" customModule="Checklists" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="dVv-cW-nFC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="ChecklistItem" id="0PG-vY-SnU">
-                                <rect key="frame" x="0.0" y="44.5" width="375" height="43.5"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="ChecklistItem" id="0PG-vY-SnU">
+                                <rect key="frame" x="0.0" y="44.5" width="375" height="43"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0PG-vY-SnU" id="iGU-Ll-lxH">
-                                    <rect key="frame" x="0.0" y="0.0" width="338.5" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="322" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" tag="1000" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="75I-sI-j2a">
-                                            <rect key="frame" x="16" y="11" width="323" height="21"/>
+                                            <rect key="frame" x="42" y="11" width="280" height="21.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="1001" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="√" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="SDC-We-8hf">
+                                            <rect key="frame" x="16" y="4" width="18" height="28"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="22"/>
+                                            <color key="textColor" name="AccentColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="75I-sI-j2a" firstAttribute="leading" secondItem="iGU-Ll-lxH" secondAttribute="leading" constant="16" id="Mu1-5e-ban"/>
-                                        <constraint firstItem="75I-sI-j2a" firstAttribute="top" secondItem="iGU-Ll-lxH" secondAttribute="top" constant="11" id="a1l-b4-8vH"/>
-                                        <constraint firstAttribute="bottom" secondItem="75I-sI-j2a" secondAttribute="bottom" constant="11.5" id="qiU-5u-45J"/>
-                                        <constraint firstAttribute="trailing" secondItem="75I-sI-j2a" secondAttribute="trailing" constant="-0.5" id="xPx-zx-kWC"/>
+                                        <constraint firstItem="75I-sI-j2a" firstAttribute="leading" secondItem="SDC-We-8hf" secondAttribute="trailing" constant="8" symbolic="YES" id="6S9-Gs-jYx"/>
+                                        <constraint firstAttribute="bottom" secondItem="75I-sI-j2a" secondAttribute="bottom" constant="10.5" id="RuS-El-pMl"/>
+                                        <constraint firstItem="75I-sI-j2a" firstAttribute="top" secondItem="iGU-Ll-lxH" secondAttribute="top" constant="11" id="Sys-L3-PxJ"/>
+                                        <constraint firstAttribute="trailing" secondItem="75I-sI-j2a" secondAttribute="trailing" id="UeC-db-Rbt"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="6Rh-GG-81S" kind="show" identifier="EditItem" trigger="accessoryAction" id="Cyp-4h-duP"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -140,7 +151,13 @@
             <point key="canvasLocation" x="-183.19999999999999" y="99.400299850074973"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="Cyp-4h-duP"/>
+    </inferredMetricsTieBreakers>
     <resources>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
