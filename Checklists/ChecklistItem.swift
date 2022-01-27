@@ -7,7 +7,7 @@
 
 import Foundation
 //the object that stores the text values of cells and if they are checked or not
-class ChecklistItem: NSObject {
+class ChecklistItem: NSObject, Codable {
     var text = ""
     var checked = false
 }

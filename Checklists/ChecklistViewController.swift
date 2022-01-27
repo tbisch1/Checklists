@@ -16,27 +16,32 @@ class ChecklistViewController: UITableViewController, itemDetailViewContorllerDe
         // Do any additional setup after loading the view.
         navigationController?.navigationBar.prefersLargeTitles = true
         //adds inital items to the array and whether checked or not
-        let item1 = ChecklistItem()
-        item1.text = "Walk the dog"
-        items.append(item1)
-        let item2 = ChecklistItem()
-        item2.text = "Brush my teeth"
-        item2.checked = true
-        items.append(item2)
-        let item3 = ChecklistItem()
-        item3.text = "Learn iOS development"
-        item3.checked = true
-        items.append(item3)
-        let item4 = ChecklistItem()
-        item4.text = "Soccer practice"
-        items.append(item4)
-        let item5 = ChecklistItem()
-        item5.text = "Eat ice cream"
-        items.append(item5)
-        //added by me
-        let item6 = ChecklistItem()
-        item6.text = "Make video"
-        items.append(item6)
+//        let item1 = ChecklistItem()
+//        item1.text = "Walk the dog"
+//        items.append(item1)
+//        let item2 = ChecklistItem()
+//        item2.text = "Brush my teeth"
+//        item2.checked = true
+//        items.append(item2)
+//        let item3 = ChecklistItem()
+//        item3.text = "Learn iOS development"
+//        item3.checked = true
+//        items.append(item3)
+//        let item4 = ChecklistItem()
+//        item4.text = "Soccer practice"
+//        items.append(item4)
+//        let item5 = ChecklistItem()
+//        item5.text = "Eat ice cream"
+//        items.append(item5)
+//        //added by me
+//        let item6 = ChecklistItem()
+//        item6.text = "Make video"
+//        items.append(item6)
+        
+        loadChecklistItems()
+        
+        print("Documents folder is \(documentsDirectory())")
+          print("Data file path is \(dataFilePath())")
     }
 
     // MARK: - Table View Data Source
@@ -74,6 +79,7 @@ class ChecklistViewController: UITableViewController, itemDetailViewContorllerDe
             configureCheckmark(for: cell, with: item)
         }
         tableView.deselectRow(at: indexPath, animated: true)
+        saveChecklistItems()
     }
     //configures the delete function
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -81,6 +87,7 @@ class ChecklistViewController: UITableViewController, itemDetailViewContorllerDe
         
         let indexPaths = [indexPath]
         tableView.deleteRows(at: indexPaths, with: .automatic)
+        saveChecklistItems()
     }
     
     // MARK: - Actions
@@ -116,6 +123,7 @@ class ChecklistViewController: UITableViewController, itemDetailViewContorllerDe
         
         tableView.insertRows(at: indexPaths, with: .automatic)
         navigationController?.popViewController(animated:true)
+        saveChecklistItems()
     }
     //done in the edit screen changes edited row
     func itemDetailViewController(_ controller: itemDetailViewController, didFinishEditing item: ChecklistItem){
@@ -126,6 +134,7 @@ class ChecklistViewController: UITableViewController, itemDetailViewContorllerDe
             }
         }
       navigationController?.popViewController(animated: true)
+        saveChecklistItems()
     }
     
     // MARK: - Navigation
@@ -141,6 +150,42 @@ class ChecklistViewController: UITableViewController, itemDetailViewContorllerDe
             
             if let indexPath = tableView.indexPath(for: sender as! UITableViewCell) {
                 controller.itemToEdit = items[indexPath.row]
+            }
+        }
+    }
+    
+        // MARK: File functions
+    func documentsDirectory() -> URL {
+        let paths = FileManager.default.urls(
+            for: .documentDirectory,
+            in: .userDomainMask)
+        return paths[0]
+    }
+    
+    func dataFilePath() -> URL {
+        return documentsDirectory().appendingPathComponent("Checklists.plist")
+    }
+    
+    func saveChecklistItems() {
+        let encoder = PropertyListEncoder()
+        do {
+            let data = try encoder.encode(items)
+            try data.write(to: dataFilePath(), options: Data.WritingOptions.atomic)
+        }
+        catch {
+            print("Error encoding item array: \(error.localizedDescription)")
+        }
+    }
+    
+    func loadChecklistItems() {
+        let path = dataFilePath()
+        if let data = try? Data (contentsOf: path) {
+            let decoder = PropertyListDecoder()
+            do {
+                items = try decoder.decode([ChecklistItem].self, from: data)
+            }
+            catch {
+                print("Error decoding item array: \(error.localizedDescription)")
             }
         }
     }
