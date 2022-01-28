@@ -9,39 +9,17 @@ import UIKit
 
 class ChecklistViewController: UITableViewController, itemDetailViewContorllerDelegate {
 
+    var checklist: Checklist!
     var items = [ChecklistItem]() //creates array
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        navigationController?.navigationBar.prefersLargeTitles = true
-        //adds inital items to the array and whether checked or not
-//        let item1 = ChecklistItem()
-//        item1.text = "Walk the dog"
-//        items.append(item1)
-//        let item2 = ChecklistItem()
-//        item2.text = "Brush my teeth"
-//        item2.checked = true
-//        items.append(item2)
-//        let item3 = ChecklistItem()
-//        item3.text = "Learn iOS development"
-//        item3.checked = true
-//        items.append(item3)
-//        let item4 = ChecklistItem()
-//        item4.text = "Soccer practice"
-//        items.append(item4)
-//        let item5 = ChecklistItem()
-//        item5.text = "Eat ice cream"
-//        items.append(item5)
-//        //added by me
-//        let item6 = ChecklistItem()
-//        item6.text = "Make video"
-//        items.append(item6)
         
         loadChecklistItems()
+        title = checklist.name
         
-        print("Documents folder is \(documentsDirectory())")
-          print("Data file path is \(dataFilePath())")
+//        print("Documents folder is \(documentsDirectory())")
+//        print("Data file path is \(dataFilePath())")
     }
 
     // MARK: - Table View Data Source
@@ -69,17 +47,9 @@ class ChecklistViewController: UITableViewController, itemDetailViewContorllerDe
 
     // MARK: - Table View Delegate
     override func tableView( //checks if cell is selected if one is toggles √
-      _ tableView: UITableView,
-      didSelectRowAt indexPath: IndexPath
-    ){
-        if let cell = tableView.cellForRow(at: indexPath) {
-            let item = items[indexPath.row]
-            
-            item.checked.toggle()
-            configureCheckmark(for: cell, with: item)
-        }
-        tableView.deselectRow(at: indexPath, animated: true)
-        saveChecklistItems()
+      _ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
+          let checklist = items[indexPath.row]
+        performSegue(withIdentifier: "ShowChecklist", sender: checklist)
     }
     //configures the delete function
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

@@ -23,7 +23,6 @@ class itemDetailViewController: UITableViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.largeTitleDisplayMode = .never //sets the titles to normal
         
         if let item = itemToEdit { //changes title if editing and enables the done button
             title = "Edit Item"
