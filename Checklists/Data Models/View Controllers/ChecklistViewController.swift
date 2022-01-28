@@ -17,9 +17,6 @@ class ChecklistViewController: UITableViewController, itemDetailViewContorllerDe
         
         
         title = checklist.name
-        
-//        print("Documents folder is \(documentsDirectory())")
-//        print("Data file path is \(dataFilePath())")
     }
 
     // MARK: - Table View Data Source
