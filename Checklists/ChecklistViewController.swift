@@ -48,8 +48,15 @@ class ChecklistViewController: UITableViewController, itemDetailViewContorllerDe
     // MARK: - Table View Delegate
     override func tableView( //checks if cell is selected if one is toggles √
       _ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
-          let checklist = items[indexPath.row]
-        performSegue(withIdentifier: "ShowChecklist", sender: checklist)
+          if let cell = tableView.cellForRow(at: indexPath) {
+            let item = items[indexPath.row]
+            item.checked.toggle()
+
+              configureCheckmark(for: cell, with: item)
+          }
+
+          tableView.deselectRow(at: indexPath, animated: true)
+          saveChecklistItems()
     }
     //configures the delete function
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

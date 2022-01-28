@@ -11,6 +11,7 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
 
     let cellIdentifier = "ChecklistCell"
     var lists = [Checklist]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -48,7 +49,8 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "ShowChecklist", sender: nil)
+        let checklist = lists[indexPath.row]
+        performSegue(withIdentifier: "ShowChecklist", sender: checklist)
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath){
@@ -56,7 +58,7 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
         let indexPaths = [indexPath]
         tableView.deleteRows(at: indexPaths, with: .automatic)
     }
-    override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath){
+    override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
         let controller = storyboard!.instantiateViewController(withIdentifier: "ListDetailViewController") as! ListDetailViewController
         controller.delegate = self
         let checklist = lists[indexPath.row]
