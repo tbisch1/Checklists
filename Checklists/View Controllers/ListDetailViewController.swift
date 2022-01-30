@@ -24,7 +24,7 @@ class ListDetailViewController: UITableViewController, UITextFieldDelegate, Icon
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let checklist = checklistToEdit {
+        if let checklist = checklistToEdit { //if editing then set the variables to the edited checklist
             title = "Edit Checklist"
             textField.text = checklist.name
             doneBarButton.isEnabled = true
@@ -54,7 +54,7 @@ class ListDetailViewController: UITableViewController, UITextFieldDelegate, Icon
     }
     // MARK: - Table View Delegates
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-    return indexPath.section == 1 ? indexPath : nil
+    return indexPath.section == 1 ? indexPath : nil //can't tap first section
     }
     // MARK: - Text Field Delegates
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {

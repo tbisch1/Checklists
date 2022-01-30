@@ -18,6 +18,7 @@ class itemDetailViewController: UITableViewController, UITextFieldDelegate {
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var shouldRemindSwitch: UISwitch!
     @IBOutlet weak var datePicker: UIDatePicker!
+    
     @IBAction func shouldRemindToggled(_ switchControl: UISwitch!) {
         textField.resignFirstResponder()
         
