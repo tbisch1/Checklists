@@ -16,6 +16,16 @@ protocol itemDetailViewContorllerDelegate: AnyObject {
 class itemDetailViewController: UITableViewController, UITextFieldDelegate {
     //variables
     @IBOutlet weak var textField: UITextField!
+    @IBOutlet weak var shouldRemindSwitch: UISwitch!
+    @IBOutlet weak var datePicker: UIDatePicker!
+    @IBAction func shouldRemindToggled(_ switchControl: UISwitch!) {
+        textField.resignFirstResponder()
+        
+        if switchControl.isOn {
+            let center = UNUserNotificationCenter.current()
+            center.requestAuthorization(options: [.alert, .sound]) {_, _ in}
+        }
+    }
     
     var itemToEdit: ChecklistItem?
     
@@ -28,6 +38,8 @@ class itemDetailViewController: UITableViewController, UITextFieldDelegate {
             title = "Edit Item"
             textField.text = item.text
             doneBarButton.isEnabled = true
+            shouldRemindSwitch.isOn = item.shouldRemind
+            datePicker.date = item.dueDate
         }
     }
     
@@ -45,11 +57,19 @@ class itemDetailViewController: UITableViewController, UITextFieldDelegate {
     @IBAction func done(){ //if editing sends command to edit item
         if let item = itemToEdit {
             item.text = textField.text!
+            item.shouldRemind = shouldRemindSwitch.isOn
+            item.dueDate = datePicker.date
+            item.scheduleNotification()
             delegate?.itemDetailViewController(self, didFinishEditing: item)
         }
         else { //if not send command to add a row
             let item = ChecklistItem()
             item.text = textField.text!
+            item.checked = false
+            
+            item.shouldRemind = shouldRemindSwitch.isOn
+            item.dueDate = datePicker.date
+            item.scheduleNotification()
             delegate?.itemDetailViewController(self, didFinishAdding: item)
         }
     }
